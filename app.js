@@ -6,6 +6,8 @@ const port = 4980;
 
 // 配置 cors 中间件, 解决跨域问题
 app.use(cors());
+// 配置解析表单数据的中间件
+app.use(require('body-parser').urlencoded({ extended: false }))
 
 app.get('/', (req, res) => {
   // 访问 http://localhost:4980/ 时, 显示static文件夹下的index.html

@@ -1,10 +1,9 @@
 const db = require('../db');
 
 exports.register = (req, res) => {
-  // 打印请求携带的参数
-  const username = req.query.username;
-  const password = req.query.password;
-  console.log(req.query);
+  // 使用的是 post 请求, 所以参数不再在 req.query 中, 而是在 req.body 中
+  const username = req.body.username;
+  const password = req.body.password;
   // 定义 SQL 语句, 查询用户名是否存在
   const sqlStr = 'select * from user where username = ?';
   db.query(sqlStr, username, (err, results) => {
@@ -46,8 +45,8 @@ exports.register = (req, res) => {
 };
 
 exports.login = (req, res) => {
-  const username = req.query.username;
-  const password = req.query.password;
+  const username = req.body.username;
+  const password = req.body.password;
 
   // 首先根据用户名查询用户是否存在
   // 定义 SQL 语句
