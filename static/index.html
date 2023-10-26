@@ -1,23 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User API Server</title>
+    <title>课程设计API服务</title>
     <style>
+      /* body内容垂直水平都居中 */
       * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
       }
       body {
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+      p {
+        color: #666;
+        text-align: center;
+        font-size: 20px;
+        margin-top: 20px;
+      }
+      a {
+        color: #007bff;
+        text-decoration: none;
       }
     </style>
   </head>
   <body>
-    <h1>当你看到这个页面时,说明你的API服务已经启动了</h1>
+    <h1>课程设计API服务</h1>
+    <!-- 提示用户,看到这个页面就说明服务运行成功了 -->
+    <p>当你看到这个页面时,这个服务已经成功跑起来了~</p>
+    <!-- 添加查看文档按钮 -->
+    <p><a href="https://4fek7r8hq2.apifox.cn/">查看文档</a></p>
   </body>
 </html>
