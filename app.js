@@ -13,8 +13,14 @@ app.get('/', (req, res) => {
   // 访问 http://localhost:4980/ 时, 显示static文件夹下的index.html
   res.sendFile(__dirname + '/static/index.html');
 });
+
 // 注册路由模块
 app.use('/user', userRouter);
+
+// 配置一个处理 404 的中间件
+app.use((req, res, next) => {
+  res.status(404).sendFile(__dirname + '/static/404.html');
+})
 
 app.listen(port, () => {
   console.log(`server runs on http://localhost:${port}`);
