@@ -1,4 +1,6 @@
 const query = require('../db');
+const jwt = require('jsonwebtoken');
+const secretKey = "ice No1 ^_^";
 
 exports.register = async (req, res) => {
   if (!req.body.username || !req.body.password)
@@ -69,6 +71,12 @@ exports.login = async (req, res) => {
         data: null,
       });
     }
+    // 生成 token 字符串
+    const tokenStr = jwt.sign(
+      { username: username, id: results[0].id },
+      secretKey,
+      { expiresIn: '24h' }
+    );
 
     return res.send({
       status: 200,
@@ -76,9 +84,23 @@ exports.login = async (req, res) => {
       data: {
         userId: results[0].id,
         username: results[0].username,
+        token: tokenStr
       },
     });
   } catch (err) {
     return res.json({ status: 500, msg: err.message });
   }
 };
+
+// 登录状态
+exports.loginStatus = async (req, res) => {
+  // 拿到token解析出来的用户id和用户名,直接返回给客户端
+  return res.send({
+    status: 200,
+    message: '成功',
+    data: {
+      userId: req.auth.id,
+      username: req.auth.username,
+    },
+  });
+}
