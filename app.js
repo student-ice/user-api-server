@@ -1,7 +1,11 @@
 const express = require('express');
 const userRouter = require('./router/user');
+const cors = require('cors');
 const app = express();
 const port = 4980;
+
+// 配置 cors 中间件, 解决跨域问题
+app.use(cors());
 
 app.get('/', (req, res) => {
   // 访问 http://localhost:4980/ 时, 显示static文件夹下的index.html

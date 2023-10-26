@@ -34,7 +34,7 @@ exports.register = (req, res) => {
         });
       // 注册成功
       res.json({
-        status: 201,
+        status: 200,
         message: '注册成功',
         data: {
           userId: results.insertId,
