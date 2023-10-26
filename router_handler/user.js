@@ -20,9 +20,12 @@ exports.register = async (req, res) => {
         data: null,
       });
     }
+    // 使用multi avatar 为用户生成随机头像
+    const avatar = `https://api.multiavatar.com/${username}.png`;
+
 
     const sql = 'insert into user set ?';
-    const insertResult = await query(sql, { username, password });
+    const insertResult = await query(sql, { username, password, avatar });
 
     if (insertResult.affectedRows !== 1) {
       return res.json({
@@ -38,6 +41,7 @@ exports.register = async (req, res) => {
       data: {
         userId: insertResult.insertId,
         username: username,
+        avatar: avatar
       },
     });
   } catch (err) {
@@ -84,7 +88,8 @@ exports.login = async (req, res) => {
       data: {
         userId: results[0].id,
         username: results[0].username,
-        token: tokenStr
+        token: tokenStr,
+        avatar: results[0].avatar
       },
     });
   } catch (err) {
@@ -94,13 +99,16 @@ exports.login = async (req, res) => {
 
 // 登录状态
 exports.loginStatus = async (req, res) => {
-  // 拿到token解析出来的用户id和用户名,直接返回给客户端
+  // 拿到token解析出来的用户id和用户名,去数据库查找用户信息
+  const sqlStr = 'select * from user where id = ?';
+  const results = await query(sqlStr, req.auth.id);
   return res.send({
     status: 200,
     message: '成功',
     data: {
-      userId: req.auth.id,
-      username: req.auth.username,
+      userId: results[0].id,
+      username: results[0].username,
+      avatar: results[0].avatar
     },
   });
 }
