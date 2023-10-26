@@ -15,7 +15,7 @@ app.use(require('body-parser').urlencoded({ extended: false }));
 app.use(
   expressJWT
     .expressjwt({ secret: secretKey, algorithms: ['HS256'] })
-    .unless({ path: [/^\/api\//, /^\/user\/(?!login\/status\b).*/] })
+    .unless({ path: [/^(?!\/user\/login\/status$).*$/] })
 );
 
 app.get('/', (req, res) => {
